@@ -1,5 +1,15 @@
 # @assistant-ui/react-generative-ui
 
+## 0.0.20
+
+### Patch Changes
+
+- [#7739](https://github.com/assistant-ui/assistant-ui/pull/7739) [`a9a5978`](https://github.com/assistant-ui/assistant-ui/commit/a9a5978a2c9b10bf12ada704bea7fd6cf46d959c) - fix: preserve model-provided children when rendering `RadioGroup` ([@rupic-app](https://github.com/apps/rupic-app))
+
+- [#7375](https://github.com/assistant-ui/assistant-ui/pull/7375) [`36da8b7`](https://github.com/assistant-ui/assistant-ui/commit/36da8b72c88586cfc42d3ac2f21757702952a2be) - fix: preserve recursive component schema references in generative UI tool parameters. ([@Kinfe123](https://github.com/Kinfe123))
+- Updated dependencies [[`9619b42`](https://github.com/assistant-ui/assistant-ui/commit/9619b4207b96cad96ec649856454db2a937aea79), [`dcd43fd`](https://github.com/assistant-ui/assistant-ui/commit/dcd43fd08ea0194425ed9148e7ae0ce64a1e67d5), [`4b069f9`](https://github.com/assistant-ui/assistant-ui/commit/4b069f90fbcb58953ebc7b9c4becca0bf4607842)]:
+  - assistant-stream@0.3.45
+
 ## 0.0.19
 
 ### Patch Changes

@@ -1,5 +1,27 @@
 # @assistant-ui/react-streamdown
 
+## 0.3.17
+
+### Patch Changes
+
+- [#7746](https://github.com/assistant-ui/assistant-ui/pull/7746) [`05a1f0d`](https://github.com/assistant-ui/assistant-ui/commit/05a1f0d264d12bac243fc795a99a1bc7cd1326ba) - fix: fail the build when emitted output imports an undeclared package ([@okisdev](https://github.com/okisdev))
+  
+  `aui-build` kept package imports external without checking them against the manifest, so emitted JavaScript or declarations could import a package a consumer cannot resolve. A build now allows only the package's own name, its declared dependencies, peers and optional dependencies (with a `@types/*` package standing in for the module it types), its `imports` map and node builtins. tsdown's `deps.onlyImport` covers import statements; a pass over the finished declarations covers the two shapes it does not visit, an inline `import("pkg").Type` and a `/// <reference types="pkg" />` directive.
+  
+  Test helpers, `testUtils` modules and benches under `src` are no longer build entries. They were unreachable through every exports map and carried `vitest` and `ink-testing-library` imports into published output.
+  
+  `@assistant-ui/react-streamdown` declares `remark-rehype`, whose `Options` type it re-exports as `RemarkRehypeOptions`.
+
+- [#7663](https://github.com/assistant-ui/assistant-ui/pull/7663) [`1ba52b8`](https://github.com/assistant-ui/assistant-ui/commit/1ba52b8aa601f2685fbece233db6fe148234a65b) - fix: stop nested raw pre markup from causing quadratic rerender comparisons ([@rupic-app](https://github.com/apps/rupic-app))
+
+- [#7846](https://github.com/assistant-ui/assistant-ui/pull/7846) [`b758f0c`](https://github.com/assistant-ui/assistant-ui/commit/b758f0c364958403be06b496a53492847d487d8f) - fix: let a new `SyntaxHighlighter`, `CodeHeader` or `componentsByLanguage` entry reach settled code blocks ([@okisdev](https://github.com/okisdev))
+  
+  a code block that streamdown had already rendered kept the previous highlighter or header when `components.SyntaxHighlighter`, `components.CodeHeader` or an entry of `componentsByLanguage` changed without new text, because streamdown's root memo ignores `components` and never re-renders the block. the code adapter now reads its components from a context that the primitive provides above streamdown, so the change reaches every mounted code block in place; the block, its siblings and the rest of the message keep their DOM and state, and a streamed token still re-renders nothing that has settled.
+
+- [#7770](https://github.com/assistant-ui/assistant-ui/pull/7770) [`4afc116`](https://github.com/assistant-ui/assistant-ui/commit/4afc1165f3c4531555fb0a9574ae5dd8797ade3a) - fix: keep the streaming escapes out of every fence and `$$` block, including one that opens right after a paragraph line or nests in a list item, and settle the paragraph a block interrupts, so `~` inside code and math is no longer escaped and a dangling `**` before a fence no longer lands its closer after the closing marker ([@okisdev](https://github.com/okisdev))
+
+- [#7886](https://github.com/assistant-ui/assistant-ui/pull/7886) [`5f21b37`](https://github.com/assistant-ui/assistant-ui/commit/5f21b37bee60458cf721b68369b251636cd939e3) - fix(react-streamdown): stop `preprocess` from restarting smooth streaming when a rewrite changes already-revealed text ([@Kinfe123](https://github.com/Kinfe123))
+
 ## 0.3.16
 
 ### Patch Changes

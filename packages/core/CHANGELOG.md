@@ -1,5 +1,86 @@
 # @assistant-ui/core
 
+## 0.3.21
+
+### Patch Changes
+
+- [#7637](https://github.com/assistant-ui/assistant-ui/pull/7637) [`b4f5153`](https://github.com/assistant-ui/assistant-ui/commit/b4f5153659c030c6660fac562e1d7d1a967d6dd1) - fix: useCloudRuntime sends the active Cloud thread id, including on the first run of a new thread, and pins the ui message stream protocol ([@rupic-app](https://github.com/apps/rupic-app))
+
+- [#7893](https://github.com/assistant-ui/assistant-ui/pull/7893) [`9b902fa`](https://github.com/assistant-ui/assistant-ui/commit/9b902faaa1984c55056aebdbdbdaee2b159d834e) - fix(core): keep a message appended during a local history load on the loaded branch ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7735](https://github.com/assistant-ui/assistant-ui/pull/7735) [`eb034f6`](https://github.com/assistant-ui/assistant-ui/commit/eb034f6251d29430c0bc1a572f265bb4fadd991a) - fix: roll back subscriptions when connecting to their source fails ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7738](https://github.com/assistant-ui/assistant-ui/pull/7738) [`5a8ff94`](https://github.com/assistant-ui/assistant-ui/commit/5a8ff94af10ddbcff518c339bcda70cb71a886fe) - fix: validate persisted assistant statuses and steps before loading history ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7719](https://github.com/assistant-ui/assistant-ui/pull/7719) [`2e3fd9e`](https://github.com/assistant-ui/assistant-ui/commit/2e3fd9e58d3a1f0909dc87be3f1f515585630f37) - fix: keep app-scoped interactables isolated and persist edits made before adapter attachment ([@Kinfe123](https://github.com/Kinfe123))
+  fix: preserve loaded and unmounted app entries in persistence adapter snapshots
+
+- [#7822](https://github.com/assistant-ui/assistant-ui/pull/7822) [`9f286dc`](https://github.com/assistant-ui/assistant-ui/commit/9f286dcd7cb7fdcef8dbbbfde249247cfe0434c8) - fix: report cloud engagement events once per thread list instead of once per mounted thread, keep counting a run that ends while its thread is in the background, and let an engagement id resolver decline an event for a thread it does not know ([@okisdev](https://github.com/okisdev))
+
+- [#7675](https://github.com/assistant-ui/assistant-ui/pull/7675) [`3af3b61`](https://github.com/assistant-ui/assistant-ui/commit/3af3b61498da1dc14e7001c104721fb5d9d3aaad) - fix: attempt every runtime cleanup when an unsubscribe throws ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7769](https://github.com/assistant-ui/assistant-ui/pull/7769) [`0ad784f`](https://github.com/assistant-ui/assistant-ui/commit/0ad784f859d7191c9d5a7e996efbb162c5d5f2b1) - fix: keep a tool call's pending approval or interrupt actionable when the call already carries a result, so a question raised by a tool that streamed output first (react-pi partial results) still renders its controls instead of reading as complete ([@okisdev](https://github.com/okisdev))
+
+- [#7760](https://github.com/assistant-ui/assistant-ui/pull/7760) [`84e0cf4`](https://github.com/assistant-ui/assistant-ui/commit/84e0cf4c9b7fc92a85d1360b37e2e20b73bed650) - fix: emit declarations from one TypeScript program so two builds of the same commit produce the same `.d.ts` ([@okisdev](https://github.com/okisdev))
+  
+  `aui-build` now emits the unbundled `.d.ts` output in one TypeScript pass over the whole package, so two builds of the same commit produce identical declarations; the per-module emit it replaced followed the bundler's load order and let union member order, alias visibility and import specifiers move between builds. Declarations import barrels as the source does and keep `import type`; the exported types are unchanged. A `/// <reference>` directive that must reach the published declarations now carries `preserve="true"` in the source.
+
+- [#7649](https://github.com/assistant-ui/assistant-ui/pull/7649) [`a4a2739`](https://github.com/assistant-ui/assistant-ui/commit/a4a273987baf5c52b13fb53f56353d306169b4e5) - fix(core): keep nested required fields in interactable update tool schemas, so the model sends a nested object whole instead of a partial one that the shallow merge would store as is ([@rupic-app](https://github.com/apps/rupic-app))
+
+- [#7682](https://github.com/assistant-ui/assistant-ui/pull/7682) [`fdf5706`](https://github.com/assistant-ui/assistant-ui/commit/fdf57066a2fd7227aa552a9f985e76c8e639def0) - refactor: make the replay boundary stream clear its own replay state on read failures and cancellation, so the transition out of replay mode is balanced with the transition in ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7674](https://github.com/assistant-ui/assistant-ui/pull/7674) [`dea2462`](https://github.com/assistant-ui/assistant-ui/commit/dea2462d97f79552d76c97cc8ad93753eccf2544) - fix: prevent late local-storage history writes from restoring deleted threads ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7866](https://github.com/assistant-ui/assistant-ui/pull/7866) [`c45ae5a`](https://github.com/assistant-ui/assistant-ui/commit/c45ae5adc635522c993d6b3c79291a308784d3a1) - fix: keep a nested object's unwritten fields while an interactable update streams it ([@okisdev](https://github.com/okisdev))
+
+- [#7757](https://github.com/assistant-ui/assistant-ui/pull/7757) [`7face86`](https://github.com/assistant-ui/assistant-ui/commit/7face86c16cf9f1c64548816cf6db8e5c463c1c1) - fix: keep messages stable across values events when UI lives in graph state ([@okisdev](https://github.com/okisdev))
+  
+  `useStreamRuntime` reconverted every root message and every nested subagent transcript on each `values` event when `stream.values.ui` (or the configured `uiStateKey`) held generative UI, even when its contents had not changed. The SDK rebuilds the `values` object from every snapshot and reconciles only the messages slot by id, so an unchanged UI list arrives as a new array of new entries on every superstep and every cached conversion missed. The runtime now recovers entry identity where the snapshot enters the merge: an entry structurally equal to the previous entry with its id keeps the previous object, and an unchanged list keeps the previous list, so the merged UI map, the converter and the subagent transcripts only change when the UI state does.
+  
+  `@assistant-ui/core/internal` exports `isJSONValueEqual`.
+
+- [#7329](https://github.com/assistant-ui/assistant-ui/pull/7329) [`6407760`](https://github.com/assistant-ui/assistant-ui/commit/64077600dd62b8283d60487372bc192ca256405d) - fix: tear down late voice controls at most once while preserving cleanup after early cancellation and the original session end reason. ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7868](https://github.com/assistant-ui/assistant-ui/pull/7868) [`4bed51f`](https://github.com/assistant-ui/assistant-ui/commit/4bed51fea1498b6d1f4e85c002c6614b74dd0d1c) - fix(core): refresh model context subscribers when the main thread runtime attaches ([@okisdev](https://github.com/okisdev))
+
+- [#7762](https://github.com/assistant-ui/assistant-ui/pull/7762) [`4928364`](https://github.com/assistant-ui/assistant-ui/commit/49283649b9119d8fe3acbc7bd2703d3473a98e9b) - fix: resolve component registries by own keys only, so a component, tool or data part name that only `Object.prototype` has (`toString`, `constructor`, `__proto__`) takes the `Fallback` or `GenerativeUIRenderError` path instead of rendering the inherited built-in ([@okisdev](https://github.com/okisdev))
+
+- [#7775](https://github.com/assistant-ui/assistant-ui/pull/7775) [`11f9648`](https://github.com/assistant-ui/assistant-ui/commit/11f96489de16f3485b81a833af7e6b3257a14689) - feat: mark interim tool output as `isPreliminary` so a tool that streams its result stays running until the final result lands, instead of reading as complete on the first chunk; react-pi flags live `partialResult` output and ai-sdk flags `preliminary` outputs, and the default tool fallback keeps the output a cancelled tool streamed before it was cut off ([@okisdev](https://github.com/okisdev))
+
+- [#7390](https://github.com/assistant-ui/assistant-ui/pull/7390) [`7725cbd`](https://github.com/assistant-ui/assistant-ui/commit/7725cbd5f6da9c9f4d53105a60e839983b033778) - fix: preserve falsy error payloads such as `0`, `""` and `false` in external runtimes, while continuing to treat `null` as no error ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7734](https://github.com/assistant-ui/assistant-ui/pull/7734) [`777df32`](https://github.com/assistant-ui/assistant-ui/commit/777df32e87179b4a7b993a823fca6ded8aa95e15) - fix: clean up dictation sessions when listener setup fails ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7367](https://github.com/assistant-ui/assistant-ui/pull/7367) [`0ee58d8`](https://github.com/assistant-ui/assistant-ui/commit/0ee58d8c74bde9d1bf772a55370651eeccb37e56) - fix: reuse successful attachment uploads after a sibling fails in both runtime and ExternalThread composers, while preserving cleanup when the unsent draft is discarded. ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7707](https://github.com/assistant-ui/assistant-ui/pull/7707) [`75bd488`](https://github.com/assistant-ui/assistant-ui/commit/75bd48844f69e61d2e8e09a20b3003cd75f6adc0) - fix: correct settled and failed tool-call arg conversion ([@balazsrozsenich-dakai](https://github.com/balazsrozsenich-dakai))
+  
+  Stop re-reporting a settled tool call's unchanged arguments each time it is reconverted (which could OOM the renderer on large args), skip re-serializing them while the call keeps the same input object, and preserve a schema-failed tool call's arguments from `rawInput` instead of converting the error snapshot to `{}`.
+
+- [#7860](https://github.com/assistant-ui/assistant-ui/pull/7860) [`c2e125e`](https://github.com/assistant-ui/assistant-ui/commit/c2e125e4cfb381259c31aa71b067e1b514a82d81) - fix: suggestion chips with `send` follow the voice session's `canSendText` instead of the run state, so a chip clicked during a spoken reply sends its prompt into a connected session that takes typed text, and stays disabled while the session cannot ([@okisdev](https://github.com/okisdev))
+
+- [#7887](https://github.com/assistant-ui/assistant-ui/pull/7887) [`84cdbb0`](https://github.com/assistant-ui/assistant-ui/commit/84cdbb06c8ceb5e70cd0f838c0bcf39b629194a6) - fix: key each rendered suggestion by its content instead of its array index, so removing or reordering a suggestion no longer displays a removed suggestion's component state against a surviving one ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7618](https://github.com/assistant-ui/assistant-ui/pull/7618) [`92e991a`](https://github.com/assistant-ui/assistant-ui/commit/92e991a03d319112cf8670472c4bcaad990954fb) - fix: render numeric and nested-array generative UI children ([@Kinfe123](https://github.com/Kinfe123))
+  
+  `GenerativeUINode` now also accepts `number` and `readonly GenerativeUINode[]`. Code that narrows the union exhaustively needs cases for the new members; component `children` remains a `readonly GenerativeUINode[]`.
+
+- [#7729](https://github.com/assistant-ui/assistant-ui/pull/7729) [`534e11f`](https://github.com/assistant-ui/assistant-ui/commit/534e11fa22102cd7c1c94ff6850742796cd37fa1) - fix: ignore malformed AssistantFrame messages ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7835](https://github.com/assistant-ui/assistant-ui/pull/7835) [`9da3697`](https://github.com/assistant-ui/assistant-ui/commit/9da3697fcf98b60acdb347064e533e5cd438d7ec) - feat: let a tool approval question declare that it accepts a dismissal ([@okisdev](https://github.com/okisdev))
+  
+  `ToolCallMessagePart.approval` gains an optional request field, `dismissible`. a question (`display: "select"` or `"text"`) offers no refusal by default, because the kit never fabricates one the host did not ask for; a host that records a dismissal sets `dismissible: true` and the default tool fallback renders a Dismiss control that sends `{ approved: false }` with no answer attached. the fallback also submits a text answer as typed, an empty one included, instead of gating Send on visible text; a host that cannot record an empty answer rejects the response and the controls come back with its error.
+  
+  `@assistant-ui/react-pi` projects Pi `select`, `input` and `editor` requests as dismissible, since Pi resolves a cancelled request with `undefined` and the runtime already maps `approved: false` to that dismissal. `@assistant-ui/ai-sdk` reads `dismissible` from the `approvalDescriptor` like the other request fields.
+
+- [#7790](https://github.com/assistant-ui/assistant-ui/pull/7790) [`89c0f55`](https://github.com/assistant-ui/assistant-ui/commit/89c0f55488006f47555826f6e9832f793d8e04d4) - fix: hold a voice transcript or typed turn until a pending thread history load settles, so it is committed onto the loaded thread instead of a branch the import leaves behind. A thread switched before the load ends drops the waiting message rather than committing it under the wrong thread ([@spark-328](https://github.com/spark-328))
+
+- [#7777](https://github.com/assistant-ui/assistant-ui/pull/7777) [`c51ba8f`](https://github.com/assistant-ui/assistant-ui/commit/c51ba8fb3014375ae62784084aaefe3ecc6d72fa) - feat(core): let typed text enter a connected voice session through `sendText` ([@okisdev](https://github.com/okisdev))
+  
+  a `RealtimeVoiceAdapter.Session` (and the `VoiceSessionControls` returned to `createVoiceSession`) can implement `sendText(text)`. while a running session takes typed text, `VoiceSessionState.canSendText` is true, the thread composer can send, and `thread.append` with a plain text user message hands the text to the session and commits it once as a typed turn (no `metadata.modality`) through the same path as a finalized transcript: the local runtime writes it to the repository and history, an external store receives it through `onVoiceTranscript`. the session must not echo the typed text through `onTranscript`. a session without `sendText` keeps rejecting typed sends as before. while a session is connected the send button and the Enter key follow `canSend` alone, so a reply being spoken no longer blocks them. the ai-sdk runtime keeps the message's own modality when it persists a voice session message, so a typed turn is no longer marked as spoken.
+- Updated dependencies [[`9619b42`](https://github.com/assistant-ui/assistant-ui/commit/9619b4207b96cad96ec649856454db2a937aea79), [`dcd43fd`](https://github.com/assistant-ui/assistant-ui/commit/dcd43fd08ea0194425ed9148e7ae0ce64a1e67d5), [`4b069f9`](https://github.com/assistant-ui/assistant-ui/commit/4b069f90fbcb58953ebc7b9c4becca0bf4607842)]:
+  - assistant-stream@0.3.45
+
 ## 0.3.20
 
 ### Patch Changes

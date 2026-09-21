@@ -1,5 +1,21 @@
 # assistant-cloud
 
+## 0.2.3
+
+### Patch Changes
+
+- [#7637](https://github.com/assistant-ui/assistant-ui/pull/7637) [`b4f5153`](https://github.com/assistant-ui/assistant-ui/commit/b4f5153659c030c6660fac562e1d7d1a967d6dd1) - fix: useCloudRuntime sends the active Cloud thread id, including on the first run of a new thread, and pins the ui message stream protocol ([@rupic-app](https://github.com/apps/rupic-app))
+
+- [#7822](https://github.com/assistant-ui/assistant-ui/pull/7822) [`9f286dc`](https://github.com/assistant-ui/assistant-ui/commit/9f286dcd7cb7fdcef8dbbbfde249247cfe0434c8) - fix: report cloud engagement events once per thread list instead of once per mounted thread, keep counting a run that ends while its thread is in the background, and let an engagement id resolver decline an event for a thread it does not know ([@okisdev](https://github.com/okisdev))
+
+- [#7643](https://github.com/assistant-ui/assistant-ui/pull/7643) [`b649669`](https://github.com/assistant-ui/assistant-ui/commit/b6496690edd3754842ab23b5f2f7b3396652495f) - fix: expose caller-supplied cost, attributes, and root span fields on run reports ([@Young7117](https://github.com/Young7117))
+
+- [#7823](https://github.com/assistant-ui/assistant-ui/pull/7823) [`0ce62a8`](https://github.com/assistant-ui/assistant-ui/commit/0ce62a880fb07726b5e787fd59377bfa8dc9d66b) - fix: accept a step input and every run outcome type on run reports ([@okisdev](https://github.com/okisdev))
+
+- [#7889](https://github.com/assistant-ui/assistant-ui/pull/7889) [`5d33fca`](https://github.com/assistant-ui/assistant-ui/commit/5d33fca404099d0cc8cbab098e36011629b0c2aa) - fix(cloud): measure a send's idle time from a stopped run instead of the last completed one ([@Kinfe123](https://github.com/Kinfe123))
+- Updated dependencies [[`9619b42`](https://github.com/assistant-ui/assistant-ui/commit/9619b4207b96cad96ec649856454db2a937aea79), [`dcd43fd`](https://github.com/assistant-ui/assistant-ui/commit/dcd43fd08ea0194425ed9148e7ae0ce64a1e67d5), [`4b069f9`](https://github.com/assistant-ui/assistant-ui/commit/4b069f90fbcb58953ebc7b9c4becca0bf4607842)]:
+  - assistant-stream@0.3.45
+
 ## 0.2.2
 
 ### Patch Changes

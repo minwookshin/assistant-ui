@@ -1,5 +1,19 @@
 # assistant-ui
 
+## 0.0.118
+
+### Patch Changes
+
+- [#7800](https://github.com/assistant-ui/assistant-ui/pull/7800) [`412bdb7`](https://github.com/assistant-ui/assistant-ui/commit/412bdb76b17cb2682b16a73f531176128c09de9e) - fix: keep forced child exits active until the process closes ([@Kinfe123](https://github.com/Kinfe123))
+
+- [#7761](https://github.com/assistant-ui/assistant-ui/pull/7761) [`687895a`](https://github.com/assistant-ui/assistant-ui/commit/687895abc7bbcce0ca8a7b8cfa5ad6f0466fce00) - feat: `assistant-ui agent` now opens Claude Code with the maintained skills from `assistant-ui/skills`, fetched at a pinned commit into the user cache, instead of a plugin bundled in the package. the bundled copy had drifted from the AI SDK it teaches ([#7486](https://github.com/assistant-ui/assistant-ui/issues/7486)) and is removed from the package. ([@okisdev](https://github.com/okisdev))
+
+- [#7492](https://github.com/assistant-ui/assistant-ui/pull/7492) [`de54fb0`](https://github.com/assistant-ui/assistant-ui/commit/de54fb00e391b4d062248dbe62aa0f16926968a6) - fix: make the assistant-ui agent skill scaffold a working AI SDK 7 chat route, matching the files the ai-sdk-quick-start registry preset installs ([@rupic-app](https://github.com/apps/rupic-app))
+
+- [#7744](https://github.com/assistant-ui/assistant-ui/pull/7744) [`57f96f9`](https://github.com/assistant-ui/assistant-ui/commit/57f96f970088f93a93e3aaf4a2eaaaeffb7746af) - fix: stop the assistant-ui agent skill from listing `@assistant-ui/ui`, which is private, and `@assistant-ui/styles`, which is deprecated ([@okisdev](https://github.com/okisdev))
+
+- [#7714](https://github.com/assistant-ui/assistant-ui/pull/7714) [`359f73c`](https://github.com/assistant-ui/assistant-ui/commit/359f73ce8d4d550d51ce865c12baef900d11d213) - fix: prevent timed-out template downloads from writing into the project ([@Kinfe123](https://github.com/Kinfe123))
+
 ## 0.0.117
 
 ### Patch Changes

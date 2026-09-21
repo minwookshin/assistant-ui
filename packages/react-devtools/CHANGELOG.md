@@ -1,5 +1,11 @@
 # @assistant-ui/react-devtools
 
+## 1.2.21
+
+### Patch Changes
+
+- [#7808](https://github.com/assistant-ui/assistant-ui/pull/7808) [`9182c0c`](https://github.com/assistant-ui/assistant-ui/commit/9182c0ce1684a96861a46687f5fb89762844e310) - fix: preserve snapshots for prototype-named thread ids ([@Kinfe123](https://github.com/Kinfe123))
+
 ## 1.2.20
 
 ### Patch Changes
