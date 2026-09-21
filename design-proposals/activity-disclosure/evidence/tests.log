@@ -1,0 +1,12 @@
+
+ RUN  v5.0.1 /Users/minwook/Documents/Codex/2026-09-20/oss-design-contributions/repos/assistant-ui/packages/ui
+
+
+ Test Files  2 passed (2)
+      Tests  18 passed (18)
+   Start at  17:24:30
+   Duration  9.44s (environment 43%, import 34%, tests 15%, transform 6%, worker 2%)
+
+    Isolate  2 workers spawned · ~2.24s startup each (spawn + environment, per file)
+             at least ~2.24s faster with isolate: false — reuses workers across files instead of one per file
+

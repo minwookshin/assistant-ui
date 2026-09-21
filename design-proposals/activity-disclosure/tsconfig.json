@@ -1,0 +1,14 @@
+{
+  "extends": "../../packages/ui/tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "declaration": false
+  },
+  "include": [
+    "main.tsx",
+    "../../packages/ui/src/components/react/assistant-ui/elements/activity-disclosure.tsx",
+    "../../packages/ui/src/components/react/assistant-ui/elements/activity-disclosure.test.tsx",
+    "style.d.ts"
+  ],
+  "exclude": []
+}
